@@ -25,7 +25,6 @@ import {
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { BrowserFrame } from "@/components/site/BrowserFrame";
 import { VideoPlayer } from "@/components/site/VideoPlayer";
-import { DemoDialog } from "@/components/site/DemoDialog";
 import { Reveal } from "@/components/site/Reveal";
 import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
@@ -68,6 +67,7 @@ const btnPrimary =
   "btn-lift group inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:opacity-90";
 const btnGhost =
   "btn-lift group inline-flex items-center justify-center gap-2 rounded-full border border-border px-6 py-3 text-sm font-medium text-foreground hover:bg-accent";
+const bookingUrl = "https://calendar.app.google/isSN7xRzgCbtMufg";
 
 function useInView<T extends HTMLElement>() {
   const ref = useRef<T>(null);
@@ -187,11 +187,9 @@ const faqs: [string, string][] = [
 ];
 
 function Index() {
-  const [demoOpen, setDemoOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [tab, setTab] = useState(0);
   const [step, setStep] = useState(0);
-  const openDemo = () => setDemoOpen(true);
 
   return (
     <div className="relative isolate min-h-screen overflow-x-clip">
@@ -209,10 +207,10 @@ function Index() {
             ))}
           </nav>
           <div className="flex items-center justify-end gap-2">
-            <button onClick={openDemo} className={cn(btnPrimary, "px-5 py-2")}>
+            <a href={bookingUrl} target="_blank" rel="noreferrer" className={cn(btnPrimary, "px-5 py-2")}>
               <CalendarDays className="h-4 w-4" />
               Boka en demo
-            </button>
+            </a>
             <button
               className="grid h-9 w-9 place-items-center rounded-full border border-border md:hidden"
               onClick={() => setMenuOpen((o) => !o)}
@@ -263,10 +261,10 @@ function Index() {
           </Reveal>
           <Reveal variant="up" delay={300}>
             <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
-              <button onClick={openDemo} className={btnPrimary}>
+              <a href={bookingUrl} target="_blank" rel="noreferrer" className={btnPrimary}>
                 <CalendarDays className="h-4 w-4" />
                 Boka en demo
-              </button>
+              </a>
               <a href="#video" className={btnGhost}>
                 <PlayCircle className="h-4 w-4" />
                 Så funkar det
@@ -441,11 +439,16 @@ function Index() {
         </div>
         <Reveal variant="zoom" className="relative mx-auto max-w-4xl px-5 text-center sm:px-8">
           <h2 className="text-4xl leading-[1.05] sm:text-7xl">Se hur ert varumärke skulle se ut i BrandHub</h2>
-          <button onClick={openDemo} className={cn(btnPrimary, "mt-12 px-9 py-4 text-base")}>
+          <a
+            href={bookingUrl}
+            target="_blank"
+            rel="noreferrer"
+            className={cn(btnPrimary, "mt-12 px-9 py-4 text-base")}
+          >
             <CalendarDays className="h-5 w-5" />
             Boka en demo
             <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
-          </button>
+          </a>
         </Reveal>
       </section>
 
@@ -472,7 +475,6 @@ function Index() {
         </div>
       </footer>
 
-      <DemoDialog open={demoOpen} onOpenChange={setDemoOpen} />
     </div>
   );
 }
