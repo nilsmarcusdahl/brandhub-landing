@@ -67,7 +67,8 @@ const btnPrimary =
   "btn-lift group inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:opacity-90";
 const btnGhost =
   "btn-lift group inline-flex items-center justify-center gap-2 rounded-full border border-border px-6 py-3 text-sm font-medium text-foreground hover:bg-accent";
-const bookingUrl = "https://calendar.app.google/isSN7xRzgCbtMufg";
+const bookingUrl =
+  "https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ3eOkcG8zWK4vsYzrKIRTMskm33ga8yB4YmfAuT8YZmSQ9o_b4YwP2GDh1SQTe3SaiMpkz58wYy";
 
 function useInView<T extends HTMLElement>() {
   const ref = useRef<T>(null);
