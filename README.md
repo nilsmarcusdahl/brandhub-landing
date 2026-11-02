@@ -59,5 +59,6 @@ production builds instead.
 
 Images, the explainer video, and the licensed Season Mix font are stored in
 `src/assets/`. Keep the repository private and retain the font license.
-The demo and waitlist forms currently submit to Supabase; their integration
-has intentionally been left unchanged.
+Demo booking buttons open the external Google Calendar appointment page.
+Supabase integration code remains available for application endpoints; the
+removed agency section no longer includes a waitlist form.

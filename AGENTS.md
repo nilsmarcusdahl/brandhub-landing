@@ -6,8 +6,8 @@
 - Keep the Season Mix font and other licensed assets in the private repository.
 - Never commit `.env` or other secrets. Use Cloudflare Pages environment
   settings for deployment values.
-- Do not change the “Boka en demo” form, booking behavior, waitlist form, or
-  Supabase integration unless explicitly requested.
+- Do not change the “Boka en demo” booking behavior or Supabase integration
+  unless explicitly requested.
 - Keep page-specific titles, descriptions, and sharing images in each route's
   metadata, and keep public routes prerendered for static hosting.
 - Use Bun for dependency installation and project scripts. Verify changes with

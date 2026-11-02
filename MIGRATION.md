@@ -17,9 +17,10 @@ prerendered site for Cloudflare Pages.
 
 ## Deliberately unchanged
 
-- The “Boka en demo” form, waitlist, and Supabase connection are unchanged.
-  Their environment variables must be configured in Cloudflare Pages when
-  deploying.
+- “Boka en demo” buttons link to the external Google Calendar appointment
+  page. The agency section and its waitlist form have been removed.
+- Supabase integration code remains unchanged. Its environment variables
+  should be configured in Cloudflare Pages if application endpoints need them.
 - Season Mix is licensed. Keep the GitHub repository private and preserve its
   license.
 - Inter continues to load from Google Fonts; Season Mix and the other media

@@ -128,6 +128,20 @@
   transition: opacity 1.2s ease, transform 1.6s ease;
 }
 
+.ai-ambient {
+  position: absolute;
+  border-radius: 9999px;
+  pointer-events: none;
+}
+
+.ai-ambient-1 {
+  background: radial-gradient(circle, var(--glow-1), transparent 70%);
+}
+
+.ai-ambient-3 {
+  background: radial-gradient(circle, var(--glow-3), transparent 70%);
+}
+
 :root {
   --glow-1: oklch(0.62 0.24 285);
   --glow-2: oklch(0.72 0.19 50);

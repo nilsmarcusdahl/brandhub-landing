@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { z } from "zod";
 import {
   Search,
   Save,
@@ -10,7 +9,6 @@ import {
   Code2,
   Languages,
   Mail,
-  Check,
   X,
   Menu,
   CalendarDays,
@@ -26,7 +24,6 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { BrowserFrame } from "@/components/site/BrowserFrame";
 import { VideoPlayer } from "@/components/site/VideoPlayer";
 import { Reveal } from "@/components/site/Reveal";
-import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
 
 import logo from "@/assets/brandhub-logo.svg";
@@ -37,7 +34,6 @@ import shotFarg from "@/assets/farg.png";
 import shotTypo from "@/assets/typografi.png";
 import shotIkon from "@/assets/ikoner.png";
 import shotSign from "@/assets/signatur.png";
-import shotUsers from "@/assets/users.png";
 import shotEditor from "@/assets/editor.png";
 
 export const Route = createFileRoute("/")({
@@ -121,7 +117,6 @@ function Eyebrow({ children }: { children: ReactNode }) {
 const nav = [
   { label: "Funktioner", href: "#funktioner" },
   { label: "AI", href: "#ai" },
-  { label: "För byråer", href: "#byraer" },
   { label: "Frågor", href: "#fragor" },
 ];
 
@@ -363,8 +358,8 @@ function Index() {
       {/* AI */}
       <section id="ai" className="relative scroll-mt-16 overflow-hidden bg-ink py-32 text-ink-foreground">
         <div aria-hidden className="pointer-events-none absolute inset-0">
-          <div className="ambient -left-40 top-1/4 h-[32rem] w-[32rem] bg-glow-1 opacity-40" />
-          <div className="ambient -right-40 bottom-1/4 h-[32rem] w-[32rem] bg-glow-3 opacity-35" />
+          <div className="ai-ambient ai-ambient-1 -left-40 top-1/4 h-[32rem] w-[32rem] opacity-40" />
+          <div className="ai-ambient ai-ambient-3 -right-40 bottom-1/4 h-[32rem] w-[32rem] opacity-35" />
         </div>
         <div className="relative mx-auto grid max-w-6xl items-center gap-14 px-5 sm:px-8 lg:grid-cols-2">
           <Reveal variant="blur">
@@ -395,24 +390,6 @@ function Index() {
           </Reveal>
         </div>
       </section>
-
-      {/* Agencies */}
-      <Section id="byraer" className="py-24" glow={["bg-ambient-3", "bg-ambient-2"]}>
-        <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
-          <Reveal variant="left">
-            <Eyebrow>För byråer</Eyebrow>
-            <h2 className="text-3xl sm:text-5xl">För byråer som bygger varumärken</h2>
-            <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-              Sätt upp en guide per kund, bjud in kundens administratör och lämna över en levande guide i stället för
-              en PDF.
-            </p>
-            <WaitlistCard />
-          </Reveal>
-          <Reveal variant="right" delay={150}>
-            <BrowserFrame src={shotUsers} alt="Användarhantering i BrandHub" className="card-hover" />
-          </Reveal>
-        </div>
-      </Section>
 
       {/* FAQ */}
       <Section id="fragor" className="py-24" glow={null}>
@@ -458,7 +435,6 @@ function Index() {
         <div className="mx-auto flex max-w-6xl flex-col gap-8 px-5 py-12 sm:px-8 md:flex-row md:items-center md:justify-between">
           <div>
             <img src={logo} alt="BrandHub" className="h-5 w-auto invert" />
-            <p className="mt-3 text-sm text-ink-muted">Levande varumärkesriktlinjer</p>
           </div>
           <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-ink-muted">
             {nav.map((n) => (
@@ -466,9 +442,6 @@ function Index() {
                 {n.label}
               </a>
             ))}
-            <a href="mailto:hej@brandhub.se" className="hover:text-ink-foreground">
-              hej@brandhub.se
-            </a>
           </div>
         </div>
         <div className="mx-auto max-w-6xl px-5 pb-8 text-xs text-ink-muted sm:px-8">
@@ -476,57 +449,6 @@ function Index() {
         </div>
       </footer>
 
-    </div>
-  );
-}
-
-function WaitlistCard() {
-  const [state, setState] = useState<"idle" | "busy" | "done" | "error">("idle");
-  const [msg, setMsg] = useState("");
-
-  async function submit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const email = String(new FormData(e.currentTarget).get("email") ?? "");
-    const parsed = z.string().trim().email().max(255).safeParse(email);
-    if (!parsed.success) {
-      setState("error");
-      setMsg("Ange en giltig e-postadress");
-      return;
-    }
-    setState("busy");
-    const { error } = await supabase.from("waitlist_signups").insert({ email: parsed.data });
-    if (error) {
-      setState("error");
-      setMsg("Något gick fel. Försök igen.");
-    } else setState("done");
-  }
-
-  return (
-    <div className="mt-10 rounded-[14px] border border-border bg-card p-6">
-      <p className="leading-relaxed">Färger, typsnitt, tonalitet och regler hamnar på rätt plats på några minuter.</p>
-      {state === "done" ? (
-        <p className="mt-5 flex items-center gap-2 text-sm">
-          <Check className="h-4 w-4" /> Tack, du står på väntelistan.
-        </p>
-      ) : (
-        <form onSubmit={submit} className="mt-5 flex flex-col gap-3">
-          <input
-            name="email"
-            type="email"
-            required
-            maxLength={255}
-            placeholder="namn@foretag.se"
-            aria-label="E-postadress"
-            className="w-full rounded-full border border-input bg-background px-5 py-4 text-base outline-none transition focus:border-foreground focus:shadow-frame"
-          />
-          <button type="submit" disabled={state === "busy"} className={cn(btnPrimary, "self-start")}>
-            <Mail className="h-4 w-4" />
-            Skriv upp dig på väntelistan
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </button>
-        </form>
-      )}
-      {state === "error" && <p className="mt-2 text-sm text-destructive">{msg}</p>}
     </div>
   );
 }
