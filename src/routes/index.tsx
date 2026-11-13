@@ -27,7 +27,7 @@ import { Reveal } from "@/components/site/Reveal";
 import { cn } from "@/lib/utils";
 
 import logo from "@/assets/brandhub-logo.svg";
-import video from "@/assets/brandhub-explainer.mp4";
+import video from "@/assets/brandhub-studio-explainer.mp4";
 import shotIntro from "@/assets/intro.png";
 import shotTon from "@/assets/tonalitet.png";
 import shotFarg from "@/assets/farg.png";
