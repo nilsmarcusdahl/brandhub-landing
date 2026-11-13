@@ -24,6 +24,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { BrowserFrame } from "@/components/site/BrowserFrame";
 import { VideoPlayer } from "@/components/site/VideoPlayer";
 import { Reveal } from "@/components/site/Reveal";
+import { BrandHubStudioSection } from "@/components/site/BrandHubStudioSection";
 import { cn } from "@/lib/utils";
 
 import logo from "@/assets/brandhub-logo.svg";
@@ -116,6 +117,7 @@ function Eyebrow({ children }: { children: ReactNode }) {
 
 const nav = [
   { label: "Funktioner", href: "#funktioner" },
+  { label: "Studio", href: "#studio" },
   { label: "AI", href: "#ai" },
   { label: "Frågor", href: "#fragor" },
 ];
@@ -354,6 +356,9 @@ function Index() {
           ))}
         </div>
       </Section>
+
+      {/* BrandHub Studio */}
+      <BrandHubStudioSection />
 
       {/* AI */}
       <section id="ai" className="relative scroll-mt-16 overflow-hidden bg-ink py-32 text-ink-foreground">
